@@ -92,6 +92,10 @@ export const handleWebhook = async (verifiedEvent: any, sig: string) => {
               stripeCustomerId: stripeCustomerId,
               isPaymentVerified: true,
             });
+            
+            // Get current year for copyright
+            const currentYear = new Date().getFullYear();
+            
             const emailTemplate = `<!DOCTYPE html>
 <html lang="en">
   <head>
@@ -358,7 +362,7 @@ export const handleWebhook = async (verifiedEvent: any, sig: string) => {
                       'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
                   "
                 >
-                  Copyright © 2025. All Rights Reserved.
+                  Copyright © ${currentYear}. All Rights Reserved.
                   <br />
                   <strong
                     style="
