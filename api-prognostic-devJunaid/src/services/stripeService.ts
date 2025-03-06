@@ -61,7 +61,9 @@ export const handleWebhook = async (verifiedEvent: any, sig: string) => {
             currentPeriodStart: new Date(
               subscription.current_period_start * 1000
             ),
-            currentPeriodEnd: new Date(subscription.current_period_end * 1000),
+            currentPeriodEnd: new Date(
+              subscription.current_period_end * 1000
+            ),
           });
         }
 
@@ -84,18 +86,18 @@ export const handleWebhook = async (verifiedEvent: any, sig: string) => {
           });
 
           const user = await User.findOne({ where: { id: parseInt(userId) } });
-          const userPlan = "Basic Plan";
+          const userPlan = "Premium";
           if (user) {
             await user.update({
               stripeCustomerId: stripeCustomerId,
               isPaymentVerified: true,
             });
-            const emailTemplate = `  <!DOCTYPE html>
+            const emailTemplate = `<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Email Verification</title>
+    <title>Subscription Confirmation</title>
     <link
       href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap"
       rel="stylesheet"
@@ -113,6 +115,20 @@ export const handleWebhook = async (verifiedEvent: any, sig: string) => {
       .email-container {
         max-width: 600px;
         margin: 0 auto;
+      }
+      .feature-checkmark {
+        color: #252525;
+        font-weight: bold;
+      }
+      .cta-button {
+        background-color: #252525;
+        color: white;
+        padding: 12px 24px;
+        text-decoration: none;
+        border-radius: 4px;
+        font-weight: 600;
+        display: inline-block;
+        margin: 20px 0;
       }
     </style>
   </head>
@@ -160,7 +176,7 @@ export const handleWebhook = async (verifiedEvent: any, sig: string) => {
                         sans-serif;
                     "
                   >
-                    Your Subscription Confirmation
+                    Congratulations ${user.name?.split(' ')[0] || user.name}.
                   </h1>
                 </td>
               </tr>
@@ -174,9 +190,8 @@ export const handleWebhook = async (verifiedEvent: any, sig: string) => {
                     style="
                       background-color: #ffffff;
                       border-radius: 8px;
-                      padding: 80px 20px;
-
-                      text-align: center;
+                      padding: 40px 30px;
+                      text-align: left;
                       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
                     "
                   >
@@ -184,21 +199,148 @@ export const handleWebhook = async (verifiedEvent: any, sig: string) => {
                       <td>
                         <p
                           style="
-                            font-size: 13px;
-                            font-weight: 400;
-                            color: #666;
-                            margin: 0;
+                            font-size: 15px;
+                            line-height: 1.6;
+                            color: #333;
+                            margin-bottom: 20px;
                             font-family: 'Montserrat', -apple-system,
                               BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
                               Arial, sans-serif;
                           "
                         >
-                          Thank you for your purchase! We're excited to confirm
-                          your subscription to
-                          <strong
-                            style="color: #0142ac; text-decoration: underline"
-                            >${userPlan}</strong
-                          >.
+                          You've just unlocked the most advanced AI agents ever designed to help you close more deals, retain more clients, and scale like never before. Every campaign, every interaction, every lead—now powered by precision, intelligence, and automation.
+                        </p>
+                        
+                        <p
+                          style="
+                            font-size: 15px;
+                            line-height: 1.6;
+                            color: #333;
+                            margin-bottom: 15px;
+                            font-family: 'Montserrat', -apple-system,
+                              BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
+                              Arial, sans-serif;
+                          "
+                        >
+                          As you step inside your Premium Agents Portal, here's what awaits you:
+                        </p>
+
+                        <p
+                          style="
+                            font-size: 15px;
+                            line-height: 1.6;
+                            color: #333;
+                            margin-bottom: 5px;
+                            font-family: 'Montserrat', -apple-system,
+                              BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
+                              Arial, sans-serif;
+                          "
+                        >
+                          <span class="feature-checkmark" style="color: #252525; font-weight: bold;">✅</span> AI-driven agents working around the clock, optimizing your outreach.
+                        </p>
+                        
+                        <p
+                          style="
+                            font-size: 15px;
+                            line-height: 1.6;
+                            color: #333;
+                            margin-bottom: 5px;
+                            font-family: 'Montserrat', -apple-system,
+                              BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
+                              Arial, sans-serif;
+                          "
+                        >
+                          <span class="feature-checkmark" style="color: #252525; font-weight: bold;">✅</span> Data-backed, high-converting campaigns—built in moments.
+                        </p>
+                        
+                        <p
+                          style="
+                            font-size: 15px;
+                            line-height: 1.6;
+                            color: #333;
+                            margin-bottom: 20px;
+                            font-family: 'Montserrat', -apple-system,
+                              BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
+                              Arial, sans-serif;
+                          "
+                        >
+                          <span class="feature-checkmark" style="color: #252525; font-weight: bold;">✅</span> A seamless, intuitive experience that keeps getting smarter.
+                        </p>
+                        
+                        <p
+                          style="
+                            font-size: 15px;
+                            line-height: 1.6;
+                            color: #333;
+                            margin-bottom: 20px;
+                            font-family: 'Montserrat', -apple-system,
+                              BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
+                              Arial, sans-serif;
+                          "
+                        >
+                          Take a moment to appreciate this. You didn't just buy AI Agents—you invested in an edge over your competition. The kind that separates leaders from the rest.
+                        </p>
+                        
+                        <p
+                          style="
+                            font-size: 15px;
+                            line-height: 1.6;
+                            color: #333;
+                            margin-bottom: 10px;
+                            font-weight: 600;
+                            font-family: 'Montserrat', -apple-system,
+                              BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
+                              Arial, sans-serif;
+                          "
+                        >
+                          Your account is now ready.
+                        </p>
+                        
+                        <div style="text-align: center; margin: 25px 0;">
+                          <a 
+                            href="https://app.clients.ai/login" 
+                            class="cta-button"
+                            style="
+                              background-color: #252525;
+                              color: white;
+                              padding: 12px 24px;
+                              text-decoration: none;
+                              border-radius: 4px;
+                              font-weight: 600;
+                              display: inline-block;
+                            "
+                          >
+                            Log in to Your Premium Portal
+                          </a>
+                        </div>
+                        
+                        <p
+                          style="
+                            font-size: 15px;
+                            line-height: 1.6;
+                            color: #333;
+                            margin-bottom: 30px;
+                            font-family: 'Montserrat', -apple-system,
+                              BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
+                              Arial, sans-serif;
+                          "
+                        >
+                          Welcome to the future of client acquisition. It belongs to you now.
+                        </p>
+                        
+                        <p
+                          style="
+                            font-size: 15px;
+                            line-height: 1.6;
+                            color: #333;
+                            margin-bottom: 0;
+                            font-family: 'Montserrat', -apple-system,
+                              BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
+                              Arial, sans-serif;
+                          "
+                        >
+                          Fiat Lux,<br>
+                          – The Clients.ai Team
                         </p>
                       </td>
                     </tr>
@@ -216,7 +358,7 @@ export const handleWebhook = async (verifiedEvent: any, sig: string) => {
                       'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
                   "
                 >
-                  Copyright © 2024. All Rights Reserved.
+                  Copyright © 2025. All Rights Reserved.
                   <br />
                   <strong
                     style="
@@ -235,10 +377,9 @@ export const handleWebhook = async (verifiedEvent: any, sig: string) => {
       </table>
     </div>
   </body>
-</html>
-`;
+</html>`;
             const sendSmtpEmail = {
-              subject: "Payment Successful - Clients.ai",
+              subject: "Welcome to Premium Agents by Clients.ai",
               htmlContent: emailTemplate,
               to: [
                 {
