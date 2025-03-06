@@ -591,9 +591,8 @@ export const forgetPassword = async (request: Request, h: ResponseToolkit) => {
                               Arial, sans-serif;
                           "
                         >
-                          We received a request to reset your password for your
-                          Clients.ai account.<br /><br />
-                          To reset your password, click the button below:
+                          We received a request to reset your password. For security, we’ve generated a secure link for you. <br /><br />
+                          Click below to set a new password:
                         </p>
                       </td>
                     </tr>
@@ -635,9 +634,8 @@ export const forgetPassword = async (request: Request, h: ResponseToolkit) => {
                               Arial, sans-serif;
                           "
                         >
-                          If you did not request this change, you do not need to
-                          do anything. Thanks,<br /><br />
-                          The Clients.ai Team
+                          If you didn’t request this, no worries—your account is still secure, and you can ignore this email.<br /><br />
+                          Fiat Lux, The Clients.ai Team
                         </p>
                       </td>
                     </tr>
@@ -678,7 +676,7 @@ export const forgetPassword = async (request: Request, h: ResponseToolkit) => {
 `;
 
   const sendSmtpEmail = {
-    subject: "Reset your password - clients.ai",
+    subject: "Reset Your Clients.ai Password",
     htmlContent: emailTemplate,
     to: [
       {
