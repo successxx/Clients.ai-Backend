@@ -1,0 +1,4 @@
+{
+  "appService.defaultWebAppToDeploy": "/subscriptions/8d158aeb-b901-44f8-a82b-8c9fea4ecbd5/resourceGroups/prognostic/providers/Microsoft.Web/sites/api-prognostic",
+  "appService.deploySubpath": "."
+}
