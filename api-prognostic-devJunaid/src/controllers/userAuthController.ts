@@ -370,7 +370,7 @@ export const register = async (request: Request, h: ResponseToolkit) => {
 
     return h
       .response(
-        successResponse({ id: user.id }, "An OTP has been sent to your email")
+        successResponse({ id: user.id }, "A OTP has been sent to your email")
       )
       .code(HttpStatus.CREATED);
   } catch (error: any) {
